@@ -51,17 +51,12 @@ public class ContentService {
     }
 
     private User getUserFromName(String name) {
-        User actualUser = null;
+        User actualUser= null;
         Iterator<User> i = allUsers.iterator();
-        while (i.hasNext()) {
-            User temp = i.next();
-            if (temp.getUserName().equals(name)) {
-                actualUser = temp;
-            }
+        while (i.hasNext() && !(actualUser = i.next()).getUserName().equals(name));
+        if(actualUser!=null && actualUser.getUserName().equals(name)) {
+            return actualUser;
         }
-        if (actualUser == null) {
-            throw new IllegalArgumentException("Username is wrong!");
-        }
-        return actualUser;
+        throw new IllegalArgumentException("Username is wrong!");
     }
 }
